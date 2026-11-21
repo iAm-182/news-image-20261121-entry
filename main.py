@@ -1,27 +1,25 @@
 #!/usr/bin/env python3
-"""news-image-20261121 — entrypoint.
+"""news-image-20261121 entrypoint.
 
-Copies the pre-drawn entry.png (produced by draw.py at build time) into the
-grader's output directory. Standard library only, no network, deterministic:
-two runs write identical bytes. The image itself is drawn at build time;
-this entrypoint only places the finished file where the grader reads it.
+Moves the finished front page (entry.png, drawn at build time by draw.py)
+into the grader's output directory. Standard library only, no network, no
+randomness: two runs write identical bytes.
 """
 
 import os
-import shutil
-import sys
+from pathlib import Path
 
 
-def main():
-    here = os.path.dirname(os.path.abspath(__file__))
-    src = os.path.join(here, "entry.png")
-    out_dir = os.environ.get("MAKEFUN_OUTPUT_DIR", "out")
-    os.makedirs(out_dir, exist_ok=True)
-    dst = os.path.join(out_dir, "entry.png")
-    shutil.copyfile(src, dst)
-    print(f"wrote {dst} ({os.path.getsize(dst)} bytes)")
+def run():
+    root = Path(__file__).resolve().parent
+    data = (root / "entry.png").read_bytes()
+    out = Path(os.environ.get("MAKEFUN_OUTPUT_DIR") or "out")
+    out.mkdir(parents=True, exist_ok=True)
+    dest = out / "entry.png"
+    dest.write_bytes(data)
+    print("entry.png ->", dest, f"({len(data)} bytes)")
     return 0
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    raise SystemExit(run())
