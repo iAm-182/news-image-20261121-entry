@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""news-image-20261121 entrypoint.
+"""news-image-20261121 v2 entrypoint.
 
 Moves the finished front page (entry.png, drawn at build time by draw.py)
 into the grader's output directory. Standard library only, no network, no
