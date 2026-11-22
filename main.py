@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""news-image-20261121 v2 entrypoint.
+"""news-image-20261121 v3 entrypoint.
 
-Moves the finished front page (entry.png, drawn at build time by draw.py)
+Copies the finished front page (entry.png, drawn at build time by draw.py)
 into the grader's output directory. Standard library only, no network, no
 randomness: two runs write identical bytes.
 """
@@ -17,7 +17,7 @@ def run():
     out.mkdir(parents=True, exist_ok=True)
     dest = out / "entry.png"
     dest.write_bytes(data)
-    print("entry.png ->", dest, f"({len(data)} bytes)")
+    print("entry.png ->", dest, "(%d bytes)" % len(data))
     return 0
 
 
